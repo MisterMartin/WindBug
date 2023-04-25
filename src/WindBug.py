@@ -50,7 +50,7 @@ class WindBug:
         config.save()
 
         description = f'''
-Moniter wind values that are scraped from the JSOC web page.
+Monitor wind values that are scraped from the JSOC web page.
 If they meet a certain criteria, send an email.
 
 Arguments not specified on the command line are taken from
