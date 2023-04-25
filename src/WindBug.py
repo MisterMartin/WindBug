@@ -9,17 +9,31 @@ from WindScrapper import WindScraper
 from Mailer import Mailer
 
 class WindBug:
-    '''Combines a WindScraper and a Mailer as an alerting system'''
+    '''Combines a WindScraper and a Mailer as an alerting system
+    
+    A WindScraper is started and interrogated once a second. Whenever new
+    data are avaiable, it is printed. If the new data are designated as
+    an alert, Mailer is used to email the data.
+
+    Most of this code in class is concerned with configuration. 
+    '''
 
     def __init__(self)->None:
         self.args = self.parseArgs(appName='WindBug')
 
         self.scraper = WindScraper(samplesToAvg=self.args['nsamples'], pollingSecs=self.args['pollsecs'], avgSpdBelow=self.args['avgspd'], maxSpdBelow=self.args['maxspd'])
         self.mailer = Mailer(server=self.args['server'], user=self.args['user'], fromAddr=self.args['from'], pw=self.args['password'])
+        
+        # Capture SIGINT so that we can tell WindScrapper to exit.
         signal.signal(signal.SIGINT, self.sigint)
 
-    def main(self):
+    def main(self)->None:
+        '''Entry point'''
+
+        # Start the WindScrapper thread.
         self.scraper.start()
+
+        # Keep checking the scrapper, and print data. If an alert, send an email.
         while True:
             time.sleep(1)
             # alert will be True if an alert is called for.
@@ -31,7 +45,10 @@ class WindBug:
                     self.mailer.sendMail(toAddr=self.args['to'], msg=current)
 
     def parseArgs(self, appName:str) -> (dict, str):
-        '''Get configuration from the ini file and the command line arguments.'''
+        '''Get configuration from the ini file and the command line arguments.
+        
+        Command line arguments will override values in the configuration.
+        '''
 
         defaults = {
             "Main" : {
@@ -91,6 +108,8 @@ Or just specifiy all arguments on the command line.
         return argsDict
 
     def sigint(self, a, b):
+        '''Terminate the scrapper and exit this applcation'''
+
         self.scraper.terminate()
         sys.exit(0)
 

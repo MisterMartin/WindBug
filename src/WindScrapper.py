@@ -44,6 +44,7 @@ class WindScraper(Thread):
         self.avgSpdBelow = avgSpdBelow
         self.maxSpdBelow = maxSpdBelow
         self.samplesToAvg = samplesToAvg
+        # Set True to signal the thread to exit.
         self.exit = False
 
     def status(self)->str:
