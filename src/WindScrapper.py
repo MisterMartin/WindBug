@@ -64,12 +64,12 @@ class WindScraper(Thread):
     def run(self):
         '''Loop over scrapes of the web site
 
-        Current conditions and alert status are obtained by calling WindScrapper.status()
-
-        The alert flag is cleared after each call to status().
+        Current conditions and alert status are set by this routine,
+        and obtained by calling status(). They are cleared after each
+        call to status().
         '''
 
-        # Keep a running collection od recent wind speeds in wind_speed[]
+        # Keep a running collection of recent wind speeds
         wind_speed = []
         # A countdown counter that holds off allerting for the sample span after the last alert.
         holdOff = 0
@@ -104,6 +104,8 @@ class WindScraper(Thread):
                     # Make room for the next sample
                     wind_speed.pop(0)
 
+            # Sleep for the polling interval, while checking every
+            # second for the exit request.
             for i in range(self.pollingSecs):
                 time.sleep(1)
                 if self.exit:
