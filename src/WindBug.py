@@ -113,6 +113,9 @@ Or just specifiy all arguments on the command line.
         self.scraper.terminate()
         sys.exit(0)
 
-if __name__ == '__main__':
+def main():
     wb = WindBug()
     wb.main()
+
+if __name__ == '__main__':
+    main()
