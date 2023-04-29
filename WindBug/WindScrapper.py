@@ -10,7 +10,6 @@ import requests
 requests.packages.urllib3.disable_warnings()
 import signal
 import sys
-from ConfigIni import ConfigIni
 
 class WindScraper(Thread):
     '''Monitor wind conditons scrapped from the McMurdo JSOC wind page
