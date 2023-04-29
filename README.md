@@ -1,8 +1,15 @@
 # WindBug
 Scrape the JSOC web page for wind reports and send an email when they match a criteria.
 
+## Installation 
+
+You can download this repository and work from there. But better yet, you can 
+use pip to install it and then run the module:
+
 ```
-python3 WindBug.py -h
+pip3 install git+https://github.com/MisterMartin/WindBug
+    
+python3 -m WindBug.py -h
 usage: WindBug.py [-h] [--avgspd AVGSPD] [--maxspd MAXSPD] [--nsamples NSAMPLES] [--pollsecs POLLSECS] [--server SERVER] [--user USER]
                   [--password PASSWORD] [--from FROM] [--to TO] [-c]
 
