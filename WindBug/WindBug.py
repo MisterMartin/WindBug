@@ -91,7 +91,7 @@ Or just specifiy all arguments on the command line.
         optional.add_argument('--password', help='SMTP user password', action='store', default=config.values()['Main']['SmtpPassword'])
         optional.add_argument('--from', help='Email from address', action='store', default=config.values()['Main']['FromEmail'])
         optional.add_argument('--to', help='Email to address', action='store', default=config.values()['Main']['ToEmail'])
-        optional.add_argument('-c', '--config', help='Print the configuration and exit', action='store_true', default=False)
+        optional.add_argument('-c', '--config', help='Print the configuration (including switches) and exit', action='store_true', default=False)
         args = parser.parse_args()
 
         # Convert args to a dictionary
